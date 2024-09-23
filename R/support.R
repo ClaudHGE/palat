@@ -8,7 +8,7 @@ use_r("install_if_needed") #change with the name of the function
 
 usethis::use_r("calculate_rgb") #same
 
-devtools::load_all() #to load the pkg with all the functions, similar to library()
+1 #to load the pkg with all the functions, similar to library()
 
 #ctrl+shift+p
 
