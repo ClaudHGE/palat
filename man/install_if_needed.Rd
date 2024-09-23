@@ -2,26 +2,27 @@
 % Please edit documentation in R/install_if_needed.R
 \name{install_if_needed}
 \alias{install_if_needed}
-\title{Install packages if they have not been isntalled yet}
+\title{Install a package only if it hasn't before. Else/then load it}
 \usage{
 install_if_needed(pkg)
 }
 \arguments{
-\item{pkg}{The name of the package}
+\item{pkg}{the name of the package in quotation marks}
 }
 \value{
-package installed and/or loaded.
+NULL Package loaded
 }
 \description{
-Install packages if they have not been isntalled yet
+Install a package only if it hasn't before. Else/then load it
 }
 \examples{
-install_if_needed("dplyr")
-# List of packages you want to ensure are installed
+#' install_if_needed("dplyr")
 
+# List of packages you want to ensure are installed
 packages <- c("devtools", "BiocManager", "dartRverse", "leaflet")
 #' # Install and load each package
 for (pkg in packages) {
   install_if_needed(pkg)
 }
+
 }

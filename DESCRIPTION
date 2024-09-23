@@ -1,9 +1,9 @@
 Package: palat
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Generate a Color Pallet from Geographic Coordinates
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
+Author: Claudia Helena Giraldo Escobar
+Maintainer: The package maintainer <claudielena.ge@gmail.com>
 Description: More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.
 License: MIT + file LICENSE
