@@ -3,6 +3,9 @@
 #' @param pkg the name of the package in quotation marks
 #'
 #' @return NULL Package loaded
+#'
+#' @import utils
+#'
 #' @export
 #'
 #' @examples
