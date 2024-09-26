@@ -1,7 +1,8 @@
 #' Calculate the red (R), green (G), and blue (B) color code from two or more values
 #'
-#' @param lat a vector, or column name (df$colname) for latitude values. Must have at least two values
-#' @param lon a vector, or column name (df$colname) for latitude values. Must have at least two values
+#' @param df data frame with latitude and longitude values. Must have at least two rows
+#' @param lat the column name of df that contains the latitude values.
+#' @param lon the column name of df that contains the longitude values.
 #'
 #' @return A data frame containing RGB values calculated from the input data.
 #' The output includes the following columns:
@@ -31,10 +32,15 @@
 #' # merge to the original data frame
 #' cbind(dataframe, RGB_df)
 
-getRGB <- function(lat, lon) {
+getRGB <- function(df, lat = "lat", lon = "lon", bind = TRUE) {
+  # Extract latitude and longitude values from the specified columns
+  lat <- df[[lat]]
+  lon <- df[[lon]]
+
   n_coords <- length(lat)
   lat_range <- c(min(lat), max(lat))
   lon_range <- c(min(lon), max(lon))
+
   # Normalize latitude and longitude
   norm_lat <- (lat - min(lat_range)) / (max(lat_range) - min(lat_range))
   norm_lon <- (lon - min(lon_range)) / (max(lon_range) - min(lon_range))
@@ -44,8 +50,15 @@ getRGB <- function(lat, lon) {
   G <- norm_lon * 255  # Decrease from west to east
   B <- (1 - norm_lat) * 255  # Decrease from south to north
 
+  # Create data frame with the R, G and B columns
   rgb_df <- data.frame(R = R, G = G, B = B)
   rownames(rgb_df) <- seq(1, n_coords)
 
+  if(bind == TRUE){
+    bind_rgb_df <- cbind(df, rgb_df)
+    return(bind_rgb_df)
+  }
   return(rgb_df)
 }
+
+
