@@ -12,13 +12,34 @@ getRGB(lat, lon)
 \item{lon}{a vector, or column name (df$colname) for latitude values. Must have at least two values}
 }
 \value{
-A numeric vector or matrix containing RGB values calculated from the input data.
-The output includes the following components:
-- R1, R2, R3, R4, R5: Red channel values.
-- G1, G2, G3, G4, G5: Green channel values.
-- B1, B2, B3, B4, B5: Blue channel values.
+A data frame containing RGB values calculated from the input data.
+The output includes the following columns:
+- R: Red channel values.
+- G: Green channel values.
+- B: Blue channel values.
+Each row corresponds to a coordinate of latitude and longitude provided.
 Each value represents an intensity level for the respective color channel.
 }
 \description{
 Calculate the red (R), green (G), and blue (B) color code from two or more values
+}
+\examples{
+# Using values
+getRGB(lat = c(4.611, 6.251, 3.437, 10.391, 10.963),
+lon = c(-74.083, -75.563, -76.522, -75.514, -74.796))
+
+# Using vectors
+latitude = c(4.611, 6.251, 3.437, 10.391, 10.963)
+longitude = c(-74.083, -75.563, -76.522, -75.514, -74.796)
+getRGB(lat = latitude, lon = longitude)
+
+# Using a data frame
+latitude = c(4.611, 6.251, 3.437, 10.391, 10.963)
+longitude = c(-74.083, -75.563, -76.522, -75.514, -74.796)
+dataframe <- data.frame(latitude, longitude)
+RGB_df <- getRGB(lat = dataframe$latitude, lon = dataframe$longitude)
+
+# Optional
+# merge to the original data frame
+cbind(dataframe, RGB_df)
 }
