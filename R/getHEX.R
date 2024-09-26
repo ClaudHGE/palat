@@ -6,6 +6,7 @@
 #' @param r red channel column name. From 0 to 255. Default "R"
 #' @param g green channel column name. From 0 to 255. Default "G"
 #' @param b blue channel column name. From 0 to 255. Default "B"
+#' @param bind logical. Whether the output data frame should be merged with the input data frame. Default TRUE
 #'
 #' @return a one-column dataframe with the HEX codes corresponding to each triad of RGB band codes
 #' @export
@@ -23,10 +24,9 @@
 #' latitude = c(4.611, 6.251, 3.437, 10.391, 10.963)
 #' longitude = c(-74.083, -75.563, -76.522, -75.514, -74.796)
 #' df <- data.frame(latitude, longitude)
-#' RGB_df <- getRGB(lat = df$latitude, lon = df$longitude)
-#' df_wRGB <- cbind(df, RGB_df) #optional
-#' HEX_col <- getHEX(r = df_wRGB$R, g = df_wRGB$G, b = df_wRGB$B)
-#' df_wRBGnHEX <- cbind(df_wRGB, HEX_col)
+#' RGB_df <- getRGB(df, lat = "latitude", lon = "longitude")
+#' getHEX(df = RGB_df)
+
 
 
 getHEX <- function(df, r = "R", g = "G", b = "B", bind = TRUE) {

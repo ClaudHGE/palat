@@ -4,12 +4,16 @@
 \alias{getRGB}
 \title{Calculate the red (R), green (G), and blue (B) color code from two or more values}
 \usage{
-getRGB(lat, lon)
+getRGB(df, lat = "lat", lon = "lon", bind = TRUE)
 }
 \arguments{
-\item{lat}{a vector, or column name (df$colname) for latitude values. Must have at least two values}
+\item{df}{data frame with latitude and longitude values. Must have at least two rows}
 
-\item{lon}{a vector, or column name (df$colname) for latitude values. Must have at least two values}
+\item{lat}{the column name of df that contains the latitude values.}
+
+\item{lon}{the column name of df that contains the longitude values.}
+
+\item{bind}{logical. Whether the output data frame should be merged with the input data frame. Default TRUE}
 }
 \value{
 A data frame containing RGB values calculated from the input data.
@@ -24,22 +28,9 @@ Each value represents an intensity level for the respective color channel.
 Calculate the red (R), green (G), and blue (B) color code from two or more values
 }
 \examples{
-# Using values
-getRGB(lat = c(4.611, 6.251, 3.437, 10.391, 10.963),
-lon = c(-74.083, -75.563, -76.522, -75.514, -74.796))
-
-# Using vectors
-latitude = c(4.611, 6.251, 3.437, 10.391, 10.963)
-longitude = c(-74.083, -75.563, -76.522, -75.514, -74.796)
-getRGB(lat = latitude, lon = longitude)
-
 # Using a data frame
 latitude = c(4.611, 6.251, 3.437, 10.391, 10.963)
 longitude = c(-74.083, -75.563, -76.522, -75.514, -74.796)
 dataframe <- data.frame(latitude, longitude)
-RGB_df <- getRGB(lat = dataframe$latitude, lon = dataframe$longitude)
-
-# Optional
-# merge to the original data frame
-cbind(dataframe, RGB_df)
+RGB_df <- getRGB(df = dataframe, lat = "latitude", lon = "longitude")
 }

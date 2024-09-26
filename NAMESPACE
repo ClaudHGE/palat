@@ -3,4 +3,8 @@
 export(getHEX)
 export(getRGB)
 export(install_if_needed)
+export(plat_map)
+import(ggplot2)
+import(rnaturalearth)
+import(sf)
 import(utils)

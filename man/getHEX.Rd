@@ -4,14 +4,18 @@
 \alias{getHEX}
 \title{Convert RGB bands into a HEX color}
 \usage{
-getHEX(r, g, b)
+getHEX(df, r = "R", g = "G", b = "B", bind = TRUE)
 }
 \arguments{
-\item{r}{red channel value(s). From 0 to 255.}
+\item{df}{data frame with the red, green, and blue channels.}
 
-\item{g}{green channel value(s). From 0 to 255.}
+\item{r}{red channel column name. From 0 to 255. Default "R"}
 
-\item{b}{blue channel value(s). From 0 to 255.}
+\item{g}{green channel column name. From 0 to 255. Default "G"}
+
+\item{b}{blue channel column name. From 0 to 255. Default "B"}
+
+\item{bind}{logical. Whether the output data frame should be merged with the input data frame. Default TRUE}
 }
 \value{
 a one-column dataframe with the HEX codes corresponding to each triad of RGB band codes
@@ -20,23 +24,18 @@ a one-column dataframe with the HEX codes corresponding to each triad of RGB ban
 Convert RGB bands into a HEX color
 }
 \examples{
-# Using values
-getHEX(0.0000, 255.0000, 215.22190)
-
-# Using a data frame of with the red, green and blue bands
+# Get a data frame
 df <- data.frame(
   R = c(0.0000, 154.7355, 255.0000, 149.6125, 74.5449),
   G = c(255.0000, 100.2645, 0.0000, 105.3875, 180.4551),
-  B = c(215.22190, 159.65453, 255.00000, 19.38081, 0.00000)
+  Blue = c(215.22190, 159.65453, 255.00000, 19.38081, 0.00000)
   )
-getHEX(r = df$R, g = df$G, b = df$B)
+getHEX(df, b = "Blue")
 
 # Generate colors from coordinates
 latitude = c(4.611, 6.251, 3.437, 10.391, 10.963)
 longitude = c(-74.083, -75.563, -76.522, -75.514, -74.796)
 df <- data.frame(latitude, longitude)
-RGB_df <- getRGB(lat = df$latitude, lon = df$longitude)
-df_wRGB <- cbind(df, RGB_df) #optional
-HEX_col <- getHEX(r = df_wRGB$R, g = df_wRGB$G, b = df_wRGB$B)
-df_wRBGnHEX <- cbind(df_wRGB, HEX_col)
+RGB_df <- getRGB(df, lat = "latitude", lon = "longitude")
+getHEX(df = RGB_df)
 }

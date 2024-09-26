@@ -3,6 +3,7 @@
 #' @param df data frame with latitude and longitude values. Must have at least two rows
 #' @param lat the column name of df that contains the latitude values.
 #' @param lon the column name of df that contains the longitude values.
+#' @param bind logical. Whether the output data frame should be merged with the input data frame. Default TRUE
 #'
 #' @return A data frame containing RGB values calculated from the input data.
 #' The output includes the following columns:
@@ -13,24 +14,12 @@
 #' Each value represents an intensity level for the respective color channel.
 #' @export
 #' @examples
-#' # Using values
-#' getRGB(lat = c(4.611, 6.251, 3.437, 10.391, 10.963),
-#' lon = c(-74.083, -75.563, -76.522, -75.514, -74.796))
-#'
-#' # Using vectors
-#' latitude = c(4.611, 6.251, 3.437, 10.391, 10.963)
-#' longitude = c(-74.083, -75.563, -76.522, -75.514, -74.796)
-#' getRGB(lat = latitude, lon = longitude)
-#'
 #' # Using a data frame
 #' latitude = c(4.611, 6.251, 3.437, 10.391, 10.963)
 #' longitude = c(-74.083, -75.563, -76.522, -75.514, -74.796)
 #' dataframe <- data.frame(latitude, longitude)
-#' RGB_df <- getRGB(lat = dataframe$latitude, lon = dataframe$longitude)
-#'
-#' # Optional
-#' # merge to the original data frame
-#' cbind(dataframe, RGB_df)
+#' RGB_df <- getRGB(df = dataframe, lat = "latitude", lon = "longitude")
+
 
 getRGB <- function(df, lat = "lat", lon = "lon", bind = TRUE) {
   # Extract latitude and longitude values from the specified columns
