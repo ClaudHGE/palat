@@ -8,7 +8,9 @@
 #' @param b blue channel column name. From 0 to 255. Default "Blue"
 #' @param bind logical. Whether the output data frame should be merged with the input data frame. Default TRUE
 #'
-#' @return a one-column dataframe with the HEX codes corresponding to each triad of RGB band codes
+#' @return a data frame with one column named HEX, which contains the HEX codes corresponding to each triad of RGB band codes.
+#' OR the input data frame with this column added (Default)
+#'
 #' @export
 #'
 #' @examples
@@ -43,10 +45,10 @@ getHEX <- function(df, r = "Red", g = "Green", b = "Blue", bind = TRUE) {
   n_colors <- length(r)
 
   # Convert RGB to HEX
-  hex_color <- sprintf("#%02X%02X%02X", as.integer(r), as.integer(g), as.integer(b))
+  HEX <- sprintf("#%02X%02X%02X", as.integer(r), as.integer(g), as.integer(b))
 
   # Create a data frame with hex colors
-  hex_df <- data.frame(hex_color)
+  hex_df <- data.frame(HEX)
   rownames(hex_df) <- seq(1, n_colors)
 
   if(bind == TRUE){

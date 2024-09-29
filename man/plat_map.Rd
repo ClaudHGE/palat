@@ -4,16 +4,16 @@
 \alias{plat_map}
 \title{Map points given the latitude, longitude and color}
 \usage{
-plat_map(df, lat = "lat", lon = "lon", hex = "hex_color", size = 3, ...)
+plat_map(df, lat = "lat", lon = "lon", hex = "HEX", size = 3, ...)
 }
 \arguments{
 \item{df}{data frame with latitude, longitude, and color as values.}
 
-\item{lat}{a vector, or column name (df$colname) for latitude values.}
+\item{lat}{the column name of df that contains the latitude values. Default "lat".}
 
-\item{lon}{a vector, or column name (df$colname) for latitude values.}
+\item{lon}{the column name of df that contains the longitude values. Default "lon".}
 
-\item{hex}{list of colors for each pair of coordinates}
+\item{hex}{the column name of df that contains the color codes (or names). Default "HEX".}
 
 \item{size}{default 3. Size of the points on the map}
 
@@ -35,7 +35,7 @@ RGB_df <- getRGB(df, lat = "latitude", lon = "longitude")
 HEX_df <- getHEX(df = RGB_df)
 plat_map(df = HEX_df, lat = "latitude", lon = "longitude", alpha = 0.5)
 
-colors_vector <- c("darkgoldenrod1", "gold", "dodgerblue3", "firebrick3", "ivory")
+colors_vector <- c("#00FFD7", "gold", "dodgerblue3", "firebrick3", "ivory")
 lat = c(4.611, 6.251, 3.437, 10.391, 10.963)
 lon = c(-74.083, -75.563, -76.522, -75.514, -74.796)
 df <- data.frame(lat, lon, colors_vector)

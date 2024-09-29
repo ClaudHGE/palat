@@ -9,9 +9,9 @@ getRGB(df, lat = "lat", lon = "lon", bind = TRUE)
 \arguments{
 \item{df}{data frame with latitude and longitude values. Must have at least two rows}
 
-\item{lat}{the column name of df that contains the latitude values. Default "lat"}
+\item{lat}{the column name of df that contains the latitude values. Default "lat".}
 
-\item{lon}{the column name of df that contains the longitude values. Default "lon"}
+\item{lon}{the column name of df that contains the longitude values. Default "lon".}
 
 \item{bind}{logical. Whether the output data frame should be merged with the input data frame. Default TRUE}
 }

@@ -17,9 +17,9 @@ getColors(df, lat = "lat", lon = "lon", map = TRUE)
 }
 \value{
 A data frame with the original columns and values with the columns:
-- Red, Green and Blue intensity values in decimal numbers
-- RGB color in decimal format.
-- RGB color in hexadecimal format.
+- Red, Green and Blue intensity values in decimal numbers (e.g., 100.2645).
+- RGB color in decimal format (e.g., 155, 100, 160).
+- RGB color in hexadecimal format (e.g., #9A649F).
 }
 \description{
 Add the R, G, B, and HEX columns to the input data frame. Optionally, map the results.

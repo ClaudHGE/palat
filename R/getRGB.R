@@ -1,8 +1,8 @@
 #' Calculate the red (R), green (G), and blue (B) color code from two or more values
 #'
 #' @param df data frame with latitude and longitude values. Must have at least two rows
-#' @param lat the column name of df that contains the latitude values. Default "lat"
-#' @param lon the column name of df that contains the longitude values. Default "lon"
+#' @param lat the column name of df that contains the latitude values. Default "lat".
+#' @param lon the column name of df that contains the longitude values. Default "lon".
 #' @param bind logical. Whether the output data frame should be merged with the input data frame. Default TRUE
 #'
 #' @return A data frame containing RGB values calculated from the input data.

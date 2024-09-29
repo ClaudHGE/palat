@@ -6,9 +6,9 @@
 #' @param map Logical. Whether a map is to be plotted. Default TRUE.
 #'
 #' @return A data frame with the original columns and values with the columns:
-#' - Red, Green and Blue intensity values in decimal numbers
-#' - RGB color in decimal format.
-#' - RGB color in hexadecimal format.
+#' - Red, Green and Blue intensity values in decimal numbers (e.g., 100.2645).
+#' - RGB color in decimal format (e.g., 155, 100, 160).
+#' - RGB color in hexadecimal format (e.g., #9A649F).
 #' @export
 #'
 #'
@@ -30,7 +30,7 @@ getColors <- function(df, lat = "lat", lon = "lon", map = TRUE) {
   print(head(rgb_hex))
 
   if (map == TRUE) {
-    map <- plat_map(rgb_hex, lat, lon, hex = "hex_color", size = 3)
+    map <- plat_map(rgb_hex, lat, lon, hex = "HEX", size = 3)
     print(map)
   }
   return(rgb_hex)

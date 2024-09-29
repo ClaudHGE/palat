@@ -18,7 +18,8 @@ getHEX(df, r = "Red", g = "Green", b = "Blue", bind = TRUE)
 \item{bind}{logical. Whether the output data frame should be merged with the input data frame. Default TRUE}
 }
 \value{
-a one-column dataframe with the HEX codes corresponding to each triad of RGB band codes
+a data frame with one column named HEX, which contains the HEX codes corresponding to each triad of RGB band codes.
+OR the input data frame with this column added (Default)
 }
 \description{
 Convert RGB bands into a HEX color
