@@ -34,7 +34,7 @@
 #'
 platMap <- function(df, lat = "lat", lon = "lon", hex = "HEX", size = 3, ...) {
   # Load world map data
-  world <- ne_countries(scale = "medium", returnclass = "sf")
+  world <- rnaturalearth::ne_countries(scale = "medium", returnclass = "sf")
 
   # Extract latitude and longitude ranges
   lat_range <- range(df[[lat]], na.rm = TRUE)
