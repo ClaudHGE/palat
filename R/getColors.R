@@ -27,7 +27,6 @@
 getColors <- function(df, lat = "lat", lon = "lon", map = TRUE) {
   rgb <- getRGB(df, lat, lon, bind = TRUE)
   rgb_hex <- getHEX(df = rgb, r = "Red", g = "Green", b = "Blue", bind = TRUE)
-  print(head(rgb_hex))
 
   if (map == TRUE) {
     map <- platMap(rgb_hex, lat, lon, hex = "HEX", size = 3)
