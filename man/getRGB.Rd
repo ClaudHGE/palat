@@ -9,18 +9,19 @@ getRGB(df, lat = "lat", lon = "lon", bind = TRUE)
 \arguments{
 \item{df}{data frame with latitude and longitude values. Must have at least two rows}
 
-\item{lat}{the column name of df that contains the latitude values.}
+\item{lat}{the column name of df that contains the latitude values. Default "lat"}
 
-\item{lon}{the column name of df that contains the longitude values.}
+\item{lon}{the column name of df that contains the longitude values. Default "lon"}
 
 \item{bind}{logical. Whether the output data frame should be merged with the input data frame. Default TRUE}
 }
 \value{
 A data frame containing RGB values calculated from the input data.
 The output includes the following columns:
-- R: Red channel values.
-- G: Green channel values.
-- B: Blue channel values.
+- Red: Red channel values in decimal numbers.
+- Green: Float. Green channel values in decimal numbers.
+- Blue: Float. Blue channel values in decimal numbers.
+- RGB: Character. concatenated bands that produce the decimal format of RBG colors. Each band value is the rounded `Red`, `Green` or `Blue` raw value.
 Each row corresponds to a coordinate of latitude and longitude provided.
 Each value represents an intensity level for the respective color channel.
 }
@@ -28,9 +29,14 @@ Each value represents an intensity level for the respective color channel.
 Calculate the red (R), green (G), and blue (B) color code from two or more values
 }
 \examples{
-# Using a data frame
+# Sample data frame
 latitude = c(4.611, 6.251, 3.437, 10.391, 10.963)
 longitude = c(-74.083, -75.563, -76.522, -75.514, -74.796)
 dataframe <- data.frame(latitude, longitude)
+
+# Get the RGB intensity for each row by binding the new columns to the input data frame
 RGB_df <- getRGB(df = dataframe, lat = "latitude", lon = "longitude")
+
+# Do not bind the new columns to the input data frame
+RGB_df <- getRGB(df = dataframe, lat = "latitude", lon = "longitude", bind = FALSE)
 }

@@ -7,16 +7,19 @@
 getColors(df, lat = "lat", lon = "lon", map = TRUE)
 }
 \arguments{
-\item{df}{A data frame with latitude and longitude columns}
+\item{df}{A data frame with latitude and longitude columns.}
 
-\item{lat}{Column name that contains the latitude values. Default "lat"}
+\item{lat}{Column name that contains the latitude values. Default "lat".}
 
-\item{lon}{Column name that contains the longitude values. Default "lon"}
+\item{lon}{Column name that contains the longitude values. Default "lon".}
 
-\item{map}{Logical. Whether a map is to be plotted. Default TRUE}
+\item{map}{Logical. Whether a map is to be plotted. Default TRUE.}
 }
 \value{
-A data frame with the original columns and values with the added R, G, B and HEX columns
+A data frame with the original columns and values with the columns:
+- Red, Green and Blue intensity values in decimal numbers
+- RGB color in decimal format.
+- RGB color in hexadecimal format.
 }
 \description{
 Add the R, G, B, and HEX columns to the input data frame. Optionally, map the results.

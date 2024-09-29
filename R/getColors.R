@@ -1,11 +1,14 @@
 #' Add the R, G, B, and HEX columns to the input data frame. Optionally, map the results.
 #'
-#' @param df A data frame with latitude and longitude columns
-#' @param lat Column name that contains the latitude values. Default "lat"
-#' @param lon Column name that contains the longitude values. Default "lon"
-#' @param map Logical. Whether a map is to be plotted. Default TRUE
+#' @param df A data frame with latitude and longitude columns.
+#' @param lat Column name that contains the latitude values. Default "lat".
+#' @param lon Column name that contains the longitude values. Default "lon".
+#' @param map Logical. Whether a map is to be plotted. Default TRUE.
 #'
-#' @return A data frame with the original columns and values with the added R, G, B and HEX columns
+#' @return A data frame with the original columns and values with the columns:
+#' - Red, Green and Blue intensity values in decimal numbers
+#' - RGB color in decimal format.
+#' - RGB color in hexadecimal format.
 #' @export
 #'
 #'
@@ -23,7 +26,7 @@
 #'
 getColors <- function(df, lat = "lat", lon = "lon", map = TRUE) {
   rgb <- getRGB(df, lat, lon, bind = TRUE)
-  rgb_hex <- getHEX(df = rgb, r = "R", g = "G", b = "B", bind = TRUE)
+  rgb_hex <- getHEX(df = rgb, r = "Red", g = "Green", b = "Blue", bind = TRUE)
   print(head(rgb_hex))
 
   if (map == TRUE) {
