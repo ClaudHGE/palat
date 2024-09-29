@@ -14,8 +14,8 @@
 #'
 #' @examples
 #' # Sample data frame
-#' latitude = c(4.611, 6.251, 3.437, 10.391, 10.963)
-#' longitude = c(-74.083, -75.563, -76.522, -75.514, -74.796)
+#' latitude <- c(4.611, 6.251, 3.437, 10.391, 10.963)
+#' longitude <- c(-74.083, -75.563, -76.522, -75.514, -74.796)
 #' dataframe <- data.frame(latitude, longitude)
 #'
 #' # Call the function without plotting the map
@@ -30,7 +30,7 @@ getColors <- function(df, lat = "lat", lon = "lon", map = TRUE) {
   print(head(rgb_hex))
 
   if (map == TRUE) {
-    map <- plat_map(rgb_hex, lat, lon, hex = "HEX", size = 3)
+    map <- platMap(rgb_hex, lat, lon, hex = "HEX", size = 3)
     print(map)
   }
   return(rgb_hex)

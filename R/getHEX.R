@@ -25,8 +25,8 @@
 #'
 #' # Generate colors from coordinates
 #' # - Sample data frame
-#' latitude = c(4.611, 6.251, 3.437, 10.391, 10.963)
-#' longitude = c(-74.083, -75.563, -76.522, -75.514, -74.796)
+#' latitude <- c(4.611, 6.251, 3.437, 10.391, 10.963)
+#' longitude <- c(-74.083, -75.563, -76.522, -75.514, -74.796)
 #' df <- data.frame(latitude, longitude)
 #' # - Get the Red, Green and Blue bands intensity
 #' RGB_df <- getRGB(df, lat = "latitude", lon = "longitude")

@@ -24,15 +24,15 @@
 #' df <- data.frame(latitude, longitude)
 #' RGB_df <- getRGB(df, lat = "latitude", lon = "longitude")
 #' HEX_df <- getHEX(df = RGB_df)
-#' plat_map(df = HEX_df, lat = "latitude", lon = "longitude", alpha = 0.5)
+#' platMap(df = HEX_df, lat = "latitude", lon = "longitude", alpha = 0.5)
 #'
 #' colors_vector <- c("#00FFD7", "gold", "dodgerblue3", "firebrick3", "ivory")
-#' lat = c(4.611, 6.251, 3.437, 10.391, 10.963)
-#' lon = c(-74.083, -75.563, -76.522, -75.514, -74.796)
+#' lat <- c(4.611, 6.251, 3.437, 10.391, 10.963)
+#' lon <- c(-74.083, -75.563, -76.522, -75.514, -74.796)
 #' df <- data.frame(lat, lon, colors_vector)
-#' plat_map(df = df, hex = "colors_vector")
+#' platMap(df = df, hex = "colors_vector")
 #'
-plat_map <- function(df, lat = "lat", lon = "lon", hex = "HEX", size = 3, ...) {
+platMap <- function(df, lat = "lat", lon = "lon", hex = "HEX", size = 3, ...) {
   # Load world map data
   world <- ne_countries(scale = "medium", returnclass = "sf")
 
