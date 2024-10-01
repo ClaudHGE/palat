@@ -70,5 +70,21 @@ colors <- colorCluster(df = df, k = "clusters", bind = TRUE)
 print(colors) # Colors per point and per group.
 
 # Workflow from latitude and longitude values
+df <- data.frame(
+lat = c(4.611, 6.251, 3.437, 10.391, 10.963),
+long = c(-74.083, -75.563, -76.522, -75.514, -74.796),
+clusters = c("Andes", "Andes", "Andes", "Coast", "Coast"))
+
+# Get the RGB bands. This works also with getRGB(..., bind = TRUE)
+df1 <- getColors(df = df, lon = "long", map = FALSE)
+df1 <- colorCluster(df = df1, k = "clusters", bind = TRUE)
+
+# produce the map. Note that bind must be TRUE in the previous step
+platMap(df1, lon = "long", hex = "HEX.K")
+
+# Get the RGB bands only with the function getRGB()
+df2 <- getRGB(df = df, lon = "long", bind = TRUE) # bind must be TRUE here
+df2 <- colorCluster(df = df2, k = "clusters", bind = TRUE)
+platMap(df2, lon = "long", hex = "HEX.K")
 
 }
