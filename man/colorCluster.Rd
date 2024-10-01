@@ -50,8 +50,7 @@ average color that define a group of your points (e.g., regions)
 To map this output use platMap()
 }
 \examples{
-# Sample data frame. The Red, Green and Blue columns can be created with the
-# function getColors() or getRGB()
+# Sample data frame with the color band values
 df <- data.frame(
 lat = c(4.611, 6.251, 3.437, 10.391, 10.963),
 long = c(-74.083, -75.563, -76.522, -75.514, -74.796),
@@ -69,5 +68,7 @@ print(colors) # Only resultant values. One column per cluster.
 # as well as the columns lat and long are preserved
 colors <- colorCluster(df = df, k = "clusters", bind = TRUE)
 print(colors) # Colors per point and per group.
+
+# Workflow from latitude and longitude values
 
 }

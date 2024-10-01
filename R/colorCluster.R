@@ -29,13 +29,11 @@
 #' returns the original df with as many columns as the original df
 #' plus those mentioned above.
 #'
-#' @import grDevices
 #' @import stats
 #' @export
 #'
 #' @examples
-#' # Sample data frame. The Red, Green and Blue columns can be created with the
-#' # function getColors() or getRGB()
+#' # Sample data frame with the color band values
 #' df <- data.frame(
 #' lat = c(4.611, 6.251, 3.437, 10.391, 10.963),
 #' long = c(-74.083, -75.563, -76.522, -75.514, -74.796),
@@ -54,6 +52,8 @@
 #' colors <- colorCluster(df = df, k = "clusters", bind = TRUE)
 #' print(colors) # Colors per point and per group.
 #'
+#' # Workflow from latitude and longitude values
+#'
 colorCluster <- function(df, k = "Cluster", r = "Red", g = "Green", b = "Blue",
                          bind = TRUE) {
   colnames(df)[colnames(df) == k] <- "Cluster"
@@ -69,7 +69,7 @@ colorCluster <- function(df, k = "Cluster", r = "Red", g = "Green", b = "Blue",
                                      sep = ", "))
   # Convert RGB decimal to Hexadecimal
   average_colors$HEX.K <- with(average_colors,
-                               rgb(Red.K/255, Green.K/255, Blue.K/255))
+                               sprintf("#%02X%02X%02X", round(Red.K), round(Green.K), round(Blue.K)))
 
   if (bind == TRUE) {
     df_binded <- merge(df, average_colors, by = "Cluster", all.x = TRUE,
