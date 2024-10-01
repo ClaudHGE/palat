@@ -72,12 +72,14 @@
 #'
 colorCluster <- function(df, k = "Cluster", r = "Red", g = "Green", b = "Blue",
                          bind = TRUE) {
-  colnames(df)[colnames(df) == k] <- "Cluster"
-  k = "Cluster"
+
+  original_k <- k # Preserve the original name
+  colnames(df)[colnames(df) == k] <- "Cluster" # Standardize the colname for the function
+
 
   # Calculate average RGB values by cluster
   average_colors <-
-    stats::aggregate(cbind(get(r), get(g), get(b)) ~ get(k), data = df, FUN = mean)
+    stats::aggregate(cbind(get(r), get(g), get(b)) ~ Cluster, data = df, FUN = mean)
   colnames(average_colors) <- c("Cluster", "Red.K", "Green.K", "Blue.K")
   # Get the RBG triplet in decimal format
   average_colors$RGB.K <- with(average_colors,
@@ -90,7 +92,9 @@ colorCluster <- function(df, k = "Cluster", r = "Red", g = "Green", b = "Blue",
   if (bind == TRUE) {
     df_binded <- merge(df, average_colors, by = "Cluster", all.x = TRUE,
                        suffixes = c("", ".K"))
+    colnames(df_binded)[colnames(df_binded) == "Cluster"] <- original_k # Return the original colname
     return(df_binded)
   }
+  colnames(average_colors)[colnames(average_colors) == "Cluster"] <- original_k
   return(average_colors)
 }
