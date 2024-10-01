@@ -10,6 +10,7 @@ colorCluster(
   r = "Red",
   g = "Green",
   b = "Blue",
+  suffix = ".K",
   bind = TRUE
 )
 }
@@ -26,6 +27,9 @@ and a column that aggregates the points (e.g., Cluster)}
 
 \item{b}{blue channel column name. From 0 to 255. Default "Blue"}
 
+\item{suffix}{default ".K". This is a suffix added to the new columns in the
+output data frame so they can be distinguished from those in the input data frame.}
+
 \item{bind}{Logical. Default TRUE. Whether the output data frame is to be
 merged with the input data frame.
 #'}
@@ -35,10 +39,12 @@ if bind = FALSE: data frame with as many unique values as there are
 in the cluster column.
 The data frame contains six columns as follows:
 - Cluster: the original name of the column is changed to Cluster,
-- Red.K, Green.K and Blue.K: intensity of each color band respective to each
-cluster,
-- RGB.K: RGB color in decimal format respective to each cluster, and
-- HEX.K: RGB color in hexadecimal format respective to each cluster.
+- Red, Green and Blue: intensity of each color band respective to each
+cluster. If bind = TRUE: the colnames have the added suffix. Default (e.g.) Red.K
+- RGB: RGB color in decimal format respective to each cluster.
+If bind = TRUE AND the column RGB was already in the df:
+the colnames have the added suffix. Default (e.g.) RGB.K
+- HEX.K: RGB color in hexadecimal format respective to each cluster. Suffix same as above
 if bind = TRUE:
 returns the original df with as many columns as the original df
 plus those mentioned above.
@@ -81,10 +87,5 @@ df1 <- colorCluster(df = df1, k = "clusters", bind = TRUE)
 
 # produce the map. Note that bind must be TRUE in the previous step
 platMap(df1, lon = "long", hex = "HEX.K")
-
-# Get the RGB bands only with the function getRGB()
-df2 <- getRGB(df = df, lon = "long", bind = TRUE) # bind must be TRUE here
-df2 <- colorCluster(df = df2, k = "clusters", bind = TRUE)
-platMap(df2, lon = "long", hex = "HEX.K")
 
 }

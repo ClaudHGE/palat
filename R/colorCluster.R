@@ -14,6 +14,8 @@
 #' @param r red channel column name. From 0 to 255. Default "Red"
 #' @param g green channel column name. From 0 to 255. Default "Green"
 #' @param b blue channel column name. From 0 to 255. Default "Blue"
+#' @param suffix default ".K". This is a suffix added to the new columns in the
+#' output data frame so they can be distinguished from those in the input data frame.
 #' @param bind Logical. Default TRUE. Whether the output data frame is to be
 #' merged with the input data frame.
 #' #'
@@ -21,10 +23,12 @@
 #' in the cluster column.
 #' The data frame contains six columns as follows:
 #' - Cluster: the original name of the column is changed to Cluster,
-#' - Red.K, Green.K and Blue.K: intensity of each color band respective to each
-#' cluster,
-#' - RGB.K: RGB color in decimal format respective to each cluster, and
-#' - HEX.K: RGB color in hexadecimal format respective to each cluster.
+#' - Red, Green and Blue: intensity of each color band respective to each
+#' cluster. If bind = TRUE: the colnames have the added suffix. Default (e.g.) Red.K
+#' - RGB: RGB color in decimal format respective to each cluster.
+#' If bind = TRUE AND the column RGB was already in the df:
+#' the colnames have the added suffix. Default (e.g.) RGB.K
+#' - HEX.K: RGB color in hexadecimal format respective to each cluster. Suffix same as above
 #' if bind = TRUE:
 #' returns the original df with as many columns as the original df
 #' plus those mentioned above.
@@ -65,13 +69,9 @@
 #' # produce the map. Note that bind must be TRUE in the previous step
 #' platMap(df1, lon = "long", hex = "HEX.K")
 #'
-#' # Get the RGB bands only with the function getRGB()
-#' df2 <- getRGB(df = df, lon = "long", bind = TRUE) # bind must be TRUE here
-#' df2 <- colorCluster(df = df2, k = "clusters", bind = TRUE)
-#' platMap(df2, lon = "long", hex = "HEX.K")
-#'
+
 colorCluster <- function(df, k = "Cluster", r = "Red", g = "Green", b = "Blue",
-                         bind = TRUE) {
+                         suffix = ".K", bind = TRUE) {
 
   original_k <- k # Preserve the original name
   colnames(df)[colnames(df) == k] <- "Cluster" # Standardize the colname for the function
@@ -80,18 +80,19 @@ colorCluster <- function(df, k = "Cluster", r = "Red", g = "Green", b = "Blue",
   # Calculate average RGB values by cluster
   average_colors <-
     stats::aggregate(cbind(get(r), get(g), get(b)) ~ Cluster, data = df, FUN = mean)
-  colnames(average_colors) <- c("Cluster", "Red.K", "Green.K", "Blue.K")
+  colnames(average_colors) <- c("Cluster", "Red", "Green", "Blue")
+
   # Get the RBG triplet in decimal format
-  average_colors$RGB.K <- with(average_colors,
-                               paste(round(Red.K), round(Green.K), round(Blue.K),
+  average_colors$RGB <- with(average_colors,
+                               paste(round(Red), round(Green), round(Blue),
                                      sep = ", "))
   # Convert RGB decimal to Hexadecimal
-  average_colors$HEX.K <- with(average_colors,
-                               sprintf("#%02X%02X%02X", round(Red.K), round(Green.K), round(Blue.K)))
+  average_colors$HEX <- with(average_colors,
+                               sprintf("#%02X%02X%02X", round(Red), round(Green), round(Blue)))
 
   if (bind == TRUE) {
     df_binded <- merge(df, average_colors, by = "Cluster", all.x = TRUE,
-                       suffixes = c("", ".K"))
+                       suffixes = c("", suffix))
     colnames(df_binded)[colnames(df_binded) == "Cluster"] <- original_k # Return the original colname
     return(df_binded)
   }
