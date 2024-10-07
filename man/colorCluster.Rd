@@ -19,7 +19,7 @@ colorCluster(
 and a column that aggregates the points (e.g., Cluster)}
 
 \item{k}{Column name with the information to aggregate/generalize the data
-(e.g., cluster, group, region, country, ...). Default Cluster.}
+(e.g., cluster, group, region, country, ...). Default "Cluster".}
 
 \item{r}{red channel column name. From 0 to 255. Default "Red"}
 

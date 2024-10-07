@@ -1,0 +1,80 @@
+#' Plot pie charts on a map given the colors relative to each cluster.
+#'
+#' @description
+#' When you have several samples that are grouped into clusters,
+#' but every sample does not belong 100% to that group.
+#' Maybe, a percentage of the sample belongs to a group and the other to another or others.
+#' Genetic structure, for example.
+#'
+#' This function requires a column (k) with the cluster names and their associated color,
+#' Missing values are allowed. For example, if a sample is 50% "Coast" and 50% "Andes",
+#' in the cluster names column (k).
+#' This function requires as a column per cluster with the proportion of the cluster per sample.
+#'
+#'
+#' @param df data frame. Must contain a column with the cluster names (k) and the respective color (hex).
+#' There must also be a column per cluster
+#' (number of columns per cluster = length(unique(na.omit(df$k))))
+#' named exactly as the cluster (names of these columns = unique(na.omit(df$K)))
+#' filled with the proportion values (0 to 1).
+#' @param lat Column name that contains the latitude values. Default "lat".
+#' @param lon Column name that contains the longitude values. Default "lon".
+#' @param k Column name with the names of the clusters (e.g., group, region). Default "Cluster".
+#' Clusters should be associated with the samples.
+#' @param hex Column name that contains the color relative to the cluster. Default "HEX.K"
+#' @param alpha Transparency level. Default 1.
+#' @param ... Further options to be passed to rworldmap::mapPies
+#'
+#' @import rworldmap
+#' @import marmap
+#'
+#' @return A map with pie charts located at each sample given by the lat and lon coordinates provided.
+#' The proportions of each pie chart correspond to the proportion given on
+#' the columns named as the clusters.
+#' The colors correspond to the color assigned to each cluster
+#' @export
+#'
+#' @examples
+#'
+#' # Sample data frame without the colors
+#' df <- data.frame(
+#'   lati = c(4.611, 6.251, 3.437, 10.391, 10.963, 7.984722),
+#'   lon = c(-74.083, -75.563, -76.522, -75.514, -74.796, -75.198056),
+#'   # [6] doesn't entirely belong to "Andes" or "Coast" region
+#'   region = c("Andes", "Andes", "Andes", "Coast", "Coast", NA),
+#'   # the following are the proportions.
+#'   # Please not that the column names match the names of the region (cluster)
+#'   Andes = c(1, 1, 1, 0, 0, 0.5),
+#'   Coast = c(0, 0, 0, 1, 1, 0.5)
+#' )
+#' # Get the colors per sample and bind them to df
+#' df <- getColors(df, map = FALSE, lat = "lati")
+#'
+#' # Get the average color per region
+#' df <- colorCluster(df, k = "region")
+#' # the resultant df contains the necessary column for platPies: the color per cluster.
+#'
+#' # Plot the pie charts on a map
+#' platPies(df = df, lat = "lati", k = "region")
+#'
+platPies <- function(df, lat = "lat", lon = "lon", k = "Cluster", hex = "HEX.K", alpha = 1, ...) {
+  # Extract values from df
+  nameX <- lat
+  nameY <- lon
+  HEXxCluster <- unique(na.omit(df[, c(k, hex)]))
+  nameZs <- as.vector(HEXxCluster[[k]])
+  zColours <- as.vector(HEXxCluster[[hex]])
+  lon_range_plot <- c(min(df$lon), max(df$lon))
+  lat_range_plot <- c(min(df$lat), max(df$lat))
+
+  # Create the map with mapPies
+  m <- rworldmap::mapPies(dF = df,
+               nameX = lon,
+               nameY = lat,
+               nameZs = nameZs,
+               zColours = marmap::col2alpha(zColours, alpha = alpha),
+               xlim = lon_range_plot,
+               ylim = lat_range_plot,
+               ...)
+  print(m)
+}

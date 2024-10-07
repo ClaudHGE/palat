@@ -10,7 +10,7 @@
 #' @param df a data frame with numeric Red, Green and Blue values (three columns)
 #' and a column that aggregates the points (e.g., Cluster)
 #' @param k Column name with the information to aggregate/generalize the data
-#' (e.g., cluster, group, region, country, ...). Default Cluster.
+#' (e.g., cluster, group, region, country, ...). Default "Cluster".
 #' @param r red channel column name. From 0 to 255. Default "Red"
 #' @param g green channel column name. From 0 to 255. Default "Green"
 #' @param b blue channel column name. From 0 to 255. Default "Blue"
