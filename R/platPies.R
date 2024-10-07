@@ -12,17 +12,22 @@
 #' This function requires as a column per cluster with the proportion of the cluster per sample.
 #'
 #'
-#' @param df data frame. Must contain a column with the cluster names (k) and the respective color (hex).
-#' There must also be a column per cluster
-#' (number of columns per cluster = length(unique(na.omit(df$k))))
-#' named exactly as the cluster (names of these columns = unique(na.omit(df$K)))
-#' filled with the proportion values (0 to 1).
+#' @param df data frame. Must contain the relative proportion (values from 0 to 1)
+#' of every sample (row) to each cluster.
+#' For the cluster information, it can be part of the data frame:
+#' in a column with the cluster names (k) and the respective color (hex) OR
+#' as independent vectors that are called into de function.
+#' The columns with the proportion must be named exactly as the factors called in k.
+#' the hex column can be created in df by following the pipeline (see examples)
 #' @param lat Column name that contains the latitude values. Default "lat".
 #' @param lon Column name that contains the longitude values. Default "lon".
-#' @param k Column name with the names of the clusters (e.g., group, region). Default "Cluster".
-#' Clusters should be associated with the samples.
-#' @param hex Column name that contains the color relative to the cluster. Default "HEX.K"
-#' @param alpha Transparency level. Default 1.
+#' @param k Vector or Column name with the names of the clusters (e.g., group, region). Default "Cluster".
+#' If it's part of df, k should be associated with the samples.
+#' If vector, the order of the elements and total length must coincide with k.
+#' The factors or elements in k must be equal as the colnames in the df that contains the proportions.#'
+#' @param hex Vector or column name that contains the color relative to the cluster. Default "HEX.K".
+#' If vector, the order of the elements and total length must coincide with k.
+#' @param alpha Transparency level from 0 to 1. Default 1.
 #' @param ... Further options to be passed to rworldmap::mapPies
 #'
 #' @import rworldmap
@@ -57,13 +62,41 @@
 #' # Plot the pie charts on a map
 #' platPies(df = df, lat = "lati", k = "region")
 #'
+#'
+#' # Sample data frame. Without the cluster names and colors columns (k and hex)
+#' df2 <- data.frame(
+#'   lat = c(4.611, 6.251, 3.437, 10.391, 10.963, 7.984722),
+#'   lon = c(-74.083, -75.563, -76.522, -75.514, -74.796, -75.198056),
+#'   Andes = c(1, 1, 1, 0, 0, 0.5),
+#'   Coast = c(0, 0, 0, 1, 1, 0.5)
+#' )
+#'
+#' # Vectors with the information regarding the cluster names and colors
+#' region <- c("Andes", "Coast")
+#' color_region <- c("#8976D2", "#708F0A")
+#'
+#' platPies(df = df2, k = region, hex = color_region)
+#'
+#'
 platPies <- function(df, lat = "lat", lon = "lon", k = "Cluster", hex = "HEX.K", alpha = 1, ...) {
   # Extract values from df
   nameX <- lat
   nameY <- lon
-  HEXxCluster <- unique(na.omit(df[, c(k, hex)]))
-  nameZs <- as.vector(HEXxCluster[[k]])
-  zColours <- as.vector(HEXxCluster[[hex]])
+
+    # Check if k and hex are valid column names or vectors
+    if (length(k) == 1 && k %in% colnames(df) && length(hex) == 1 && hex %in% colnames(df)) {
+      # Extract unique values for clusters and colors
+      HEXxCluster <- unique(na.omit(df[, c(k, hex)]))
+      unique_clusters <- as.vector(HEXxCluster[[k]])
+      unique_colours <- as.vector(HEXxCluster[[hex]])
+    } else if (length(k) > 1 && length(hex) > 1 && length(k) == length(hex)) {
+      # If k and hex are vectors of equal length, use them directly
+      unique_clusters <- k
+      unique_colours <- hex
+    } else {
+      stop("Invalid input: k and hex must either be single column names or equal-length vectors.")
+    }
+
   lon_range_plot <- c(min(df$lon), max(df$lon))
   lat_range_plot <- c(min(df$lat), max(df$lat))
 
@@ -71,8 +104,8 @@ platPies <- function(df, lat = "lat", lon = "lon", k = "Cluster", hex = "HEX.K",
   m <- rworldmap::mapPies(dF = df,
                nameX = lon,
                nameY = lat,
-               nameZs = nameZs,
-               zColours = marmap::col2alpha(zColours, alpha = alpha),
+               nameZs = unique_clusters,
+               zColours = marmap::col2alpha(unique_colours, alpha = alpha),
                xlim = lon_range_plot,
                ylim = lat_range_plot,
                ...)
