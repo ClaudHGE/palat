@@ -3,6 +3,7 @@
 export(colorCluster)
 export(getColors)
 export(getHEX)
+export(getPalat)
 export(getRGB)
 export(install_if_needed)
 export(platMap)
