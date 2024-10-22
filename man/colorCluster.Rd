@@ -6,7 +6,7 @@
 \usage{
 colorCluster(
   df,
-  k = "Cluster",
+  k,
   r = "Red",
   g = "Green",
   b = "Blue",

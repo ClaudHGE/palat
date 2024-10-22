@@ -70,17 +70,17 @@
 #' platMap(df1, lon = "long", hex = "HEX.K")
 #'
 
-colorCluster <- function(df, k = "Cluster", r = "Red", g = "Green", b = "Blue",
+colorCluster <- function(df, k, r = "Red", g = "Green", b = "Blue",
                          suffix = ".K", bind = TRUE) {
 
   original_k <- k # Preserve the original name
-  colnames(df)[colnames(df) == k] <- "Cluster" # Standardize the colname for the function
+  colnames(df)[colnames(df) == k] <- "klu" # Standardize the colname for the function
 
 
   # Calculate average RGB values by cluster
   average_colors <-
-    stats::aggregate(cbind(get(r), get(g), get(b)) ~ Cluster, data = df, FUN = mean)
-  colnames(average_colors) <- c("Cluster", "Red", "Green", "Blue")
+    stats::aggregate(cbind(get(r), get(g), get(b)) ~ klu, data = df, FUN = mean)
+  colnames(average_colors) <- c("klu", "Red", "Green", "Blue")
 
   # Get the RBG triplet in decimal format
   average_colors$RGB <- with(average_colors,
@@ -91,11 +91,11 @@ colorCluster <- function(df, k = "Cluster", r = "Red", g = "Green", b = "Blue",
                                sprintf("#%02X%02X%02X", round(Red), round(Green), round(Blue)))
 
   if (bind == TRUE) {
-    df_binded <- merge(df, average_colors, by = "Cluster", all.x = TRUE,
+    df_binded <- merge(df, average_colors, by = "klu", all.x = TRUE,
                        suffixes = c("", suffix))
-    colnames(df_binded)[colnames(df_binded) == "Cluster"] <- original_k # Return the original colname
+    colnames(df_binded)[colnames(df_binded) == "klu"] <- original_k # Return the original colname
     return(df_binded)
   }
-  colnames(average_colors)[colnames(average_colors) == "Cluster"] <- original_k
+  colnames(average_colors)[colnames(average_colors) == "klu"] <- original_k
   return(average_colors)
 }
