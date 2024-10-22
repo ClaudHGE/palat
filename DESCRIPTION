@@ -1,6 +1,6 @@
 Package: palat
 Type: Package
-Title: Generate a Color Pallet from Geographic Coordinates
+Title: Generate a Color Pallete from Geographic Coordinates
 Version: 0.1.0
 Authors@R: person("Claudia H", "Giraldo E", 
     email = "claudielena.ge@gmail.com", 
