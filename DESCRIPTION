@@ -1,7 +1,7 @@
 Package: palat
 Type: Package
 Title: Generate a Color Pallete from Geographic Coordinates
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: person("Claudia H", "Giraldo E", 
     email = "claudielena.ge@gmail.com", 
     role = c("aut", "cre"), comment = c(ORCID = "0000-0002-5461-8434")
