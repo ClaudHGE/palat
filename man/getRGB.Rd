@@ -4,7 +4,7 @@
 \alias{getRGB}
 \title{Calculate the red (R), green (G), and blue (B) color code from two or more values}
 \usage{
-getRGB(df, lat = "lat", lon = "lon", bind = TRUE)
+getRGB(df, lat = "lat", lon = "lon", bind = TRUE, dir = "EW")
 }
 \arguments{
 \item{df}{data frame with latitude and longitude values. Must have at least two rows}
@@ -14,6 +14,9 @@ getRGB(df, lat = "lat", lon = "lon", bind = TRUE)
 \item{lon}{the column name of df that contains the longitude values. Default "lon".}
 
 \item{bind}{logical. Whether the output data frame should be merged with the input data frame. Default TRUE}
+
+\item{dir}{indicates the direction of the main axis, East - West ("EW") or
+North - South ("NS"). Default "EW". This axis determine the Green - Red gradient from North or East, respectively.}
 }
 \value{
 A data frame containing RGB values calculated from the input data.

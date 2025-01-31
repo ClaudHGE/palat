@@ -3,6 +3,8 @@
 #' @param df data frame with latitude and longitude values. Must have at least two rows
 #' @param lat the column name of df that contains the latitude values. Default "lat".
 #' @param lon the column name of df that contains the longitude values. Default "lon".
+#' @param dir indicates the direction of the main axis, East - West ("EW") or
+#' North - South ("NS"). Default "EW". This axis determine the Green - Red gradient from North or East, respectively.
 #' @param bind logical. Whether the output data frame should be merged with the input data frame. Default TRUE
 #'
 #' @return A data frame containing RGB values calculated from the input data.
@@ -27,7 +29,7 @@
 #' RGB_df <- getRGB(df = dataframe, lat = "latitude", lon = "longitude", bind = FALSE)
 
 
-getRGB <- function(df, lat = "lat", lon = "lon", bind = TRUE) {
+getRGB <- function(df, lat = "lat", lon = "lon", bind = TRUE, dir = "EW") {
   # Extract latitude and longitude values from the specified columns
   lat <- df[[lat]]
   lon <- df[[lon]]
@@ -41,10 +43,19 @@ getRGB <- function(df, lat = "lat", lon = "lon", bind = TRUE) {
   norm_lon <- (lon - min(lon_range)) / (max(lon_range) - min(lon_range))
 
   # Calculate R, G, B components
-  Red <- (1 - norm_lon) * 255  # Decrease from east to west
-  Green <- norm_lon * 255  # Decrease from west to east
-  Blue <- (1 - norm_lat) * 255  # Decrease from south to north
-  RGB <- paste(round(Red), round(Green), round(Blue), sep = ", ")
+  if (dir == "EW") {
+    Red <- (1 - norm_lon) * 255  # Decrease from east to west
+    Green <- norm_lon * 255  # Decrease from west to east
+    Blue <- (1 - norm_lat) * 255  # Decrease from south to north
+    RGB <- paste(round(Red), round(Green), round(Blue), sep = ", ")
+  }
+  if (dir == "NS") {
+    Red <- (1 - norm_lat) * 255  # Decrease from south to north
+    Green <- norm_lat * 255  # Decrease from north to south
+    Blue <- (1 - norm_lon) * 255  # Decrease from east to west
+    RGB <- paste(round(Red), round(Green), round(Blue), sep = ", ")
+  }
+
 
   # Create data frame with the R, G and B columns
   rgb_df <- data.frame(Red = Red, Green = Green, Blue = Blue, RGB = RGB)
@@ -56,5 +67,4 @@ getRGB <- function(df, lat = "lat", lon = "lon", bind = TRUE) {
   }
   return(rgb_df)
 }
-
 
