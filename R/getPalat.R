@@ -39,8 +39,7 @@
 
 
 getPalat <- function(df, hex = "HEX", labels = NULL, plot = TRUE, ...) {
-  # Extract unique rows for specified hex values
-  unique_rows <- as.data.frame(unique(na.omit(df[, c(hex)])))
+  # Extract the colors for specified hex values
   colores <-  unique(na.omit(df[[hex]]))
 
   # Determine labels
@@ -49,13 +48,19 @@ getPalat <- function(df, hex = "HEX", labels = NULL, plot = TRUE, ...) {
     print("Don't you prefer setting labels? add the argument `labels`")
   } else {
     nombres <- unique(na.omit(df[[labels]]))
+    # Remove empty elements in labels and corresponding elements in colors
+    valid_indices <- nombres != ""
+    colores <- colores[valid_indices]
+    nombres <- nombres[valid_indices]
   }
+
+  colores_df <- as.data.frame(colores)
 
   # Create a named vector for colors
   palat1 <- setNames(colores, nombres)
 
   if (plot == TRUE) {
-    g <- ggplot2::ggplot(data = unique_rows, aes(x = 1, y = seq_along(nombres), fill = colores)) +
+    g <- ggplot2::ggplot(data = colores_df, aes(x = 1, y = seq_along(nombres), fill = colores)) +
       ggplot2::geom_tile(...) +
       ggplot2::scale_fill_identity() +  # Use colors directly
       ggplot2::theme_void() +
