@@ -83,31 +83,31 @@ platPies <- function(df, lat = "lat", lon = "lon", k = "Cluster", hex = "HEX.K",
   nameX <- lat
   nameY <- lon
 
-    # Check if k and hex are valid column names or vectors
-    if (length(k) == 1 && k %in% colnames(df) && length(hex) == 1 && hex %in% colnames(df)) {
-      # Extract unique values for clusters and colors
-      HEXxCluster <- unique(na.omit(df[, c(k, hex)]))
-      unique_clusters <- as.vector(HEXxCluster[[k]])
-      unique_colours <- as.vector(HEXxCluster[[hex]])
-    } else if (length(k) > 1 && length(hex) > 1 && length(k) == length(hex)) {
-      # If k and hex are vectors of equal length, use them directly
-      unique_clusters <- k
-      unique_colours <- hex
-    } else {
-      stop("Invalid input: k and hex must either be single column names or equal-length vectors.")
-    }
+  # Check if k and hex are valid column names or vectors
+  if (length(k) == 1 && k %in% colnames(df) && length(hex) == 1 && hex %in% colnames(df)) {
+    # Extract unique values for clusters and colors
+    palatt <- getPalat(df, hex = hex, labels = k, plot = F)
+
+  } else if (length(k) > 1 && length(hex) > 1 && length(k) == length(hex)) {
+    # If k and hex are vectors of equal length, use them directly
+    palatt <- hex
+    names(palatt) <- k
+  } else {
+    stop("Invalid input: k and hex must either be single column names or equal-length vectors.")
+  }
 
   lon_range_plot <- c(min(df$lon), max(df$lon))
   lat_range_plot <- c(min(df$lat), max(df$lat))
 
   # Create the map with mapPies
   m <- rworldmap::mapPies(dF = df,
-               nameX = lon,
-               nameY = lat,
-               nameZs = unique_clusters,
-               zColours = marmap::col2alpha(unique_colours, alpha = alpha),
-               xlim = lon_range_plot,
-               ylim = lat_range_plot,
-               ...)
+                          nameX = lon,
+                          nameY = lat,
+                          nameZs = names(palatt),
+                          zColours = marmap::col2alpha(palatt, alpha = alpha),
+                          xlim = lon_range_plot,
+                          ylim = lat_range_plot,
+                          ...)
   print(m)
 }
+
