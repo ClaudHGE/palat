@@ -18,7 +18,7 @@
 #' @param g green channel column name. From 0 to 255. Default "Green"
 #' @param b blue channel column name. From 0 to 255. Default "Blue"
 #' @param size size of the points to be plotted, passed through platMap()
-#' @param label if labels are to be printed, column name in df with the labels. Default "FALSE"
+#' @param label Whether the labels for k are to be printed. Default TRUE
 #'
 #' @return data frame with as many unique values as there are
 #' in the cluster column.
@@ -63,7 +63,7 @@
 #'
 
 pointCluster <- function(df, k, r = "Red", g = "Green", b = "Blue", lati = "lat",
-                         long = "lon", size = 2, label = FALSE) {
+                         long = "lon", size = 2, label = TRUE) {
 
   original_k <- k # Preserve the original name
   original_lat <- lati # Preserve the original name
@@ -85,8 +85,9 @@ pointCluster <- function(df, k, r = "Red", g = "Green", b = "Blue", lati = "lat"
   # Convert RGB decimal to Hexadecimal
   average_colors$HEX <- with(average_colors,
                              sprintf("#%02X%02X%02X", round(Red), round(Green), round(Blue)))
+  if (label == TRUE) {label <- "klu"}
 
-  plot(platMap(df = average_colors, size = size, lon = "longhi", lat = "latte"))
+  plot(platMap(df = average_colors, size = size, lon = "longhi", lat = "latte", label = label))
 
   colnames(average_colors)[colnames(average_colors) == "klu"] <- original_k
   colnames(average_colors)[colnames(average_colors) == "latte"] <- original_lat

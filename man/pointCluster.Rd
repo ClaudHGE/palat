@@ -13,7 +13,7 @@ pointCluster(
   lati = "lat",
   long = "lon",
   size = 2,
-  label = FALSE
+  label = TRUE
 )
 }
 \arguments{
@@ -35,7 +35,7 @@ and a column that aggregates the points (e.g., Cluster)}
 
 \item{size}{size of the points to be plotted, passed through platMap()}
 
-\item{label}{if labels are to be printed, column name in df with the labels. Default "FALSE"}
+\item{label}{Whether the labels for k are to be printed. Default TRUE}
 }
 \value{
 data frame with as many unique values as there are
