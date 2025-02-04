@@ -5,6 +5,9 @@
 #' @param lon the column name of df that contains the longitude values. Default "lon".
 #' @param hex the column name of df that contains the color codes (or names). Default "HEX".
 #' @param size default 3. Size of the points on the map
+#' @param scale The scale of map to return, passed to `rnaturalearth::ne_countries`
+#' one of `110`, `50`, `10` or `small`, `medium`, `large`. Default "medium"
+#' @param label if labels are to be printed, column name in df with the labels. Default "FALSE"
 #' @param ... Other arguments passed to geom_point()
 #'
 #' @return a map with the points generated from the coordinates and the color determined in the arguments
@@ -32,9 +35,10 @@
 #' df <- data.frame(lat, lon, colors_vector)
 #' platMap(df = df, hex = "colors_vector")
 #'
-platMap <- function(df, lat = "lat", lon = "lon", hex = "HEX", size = 3, ...) {
+platMap <- function(df, lat = "lat", lon = "lon", hex = "HEX", scale = "medium",
+                    size = 3, label = FALSE, ...) {
   # Load world map data
-  world <- rnaturalearth::ne_countries(scale = "medium", returnclass = "sf")
+  world <- rnaturalearth::ne_countries(scale = scale, returnclass = "sf")
 
   # Extract latitude and longitude ranges
   lat_range <- range(df[[lat]], na.rm = TRUE)
@@ -48,6 +52,13 @@ platMap <- function(df, lat = "lat", lon = "lon", hex = "HEX", size = 3, ...) {
     ggplot2::coord_sf(xlim = lon_range, ylim = lat_range, expand = TRUE) +
     ggplot2::labs(x = "Longitude", y = "Latitude") +
     ggplot2::theme_minimal()
+    if (is.character(label) && label %in% colnames(df)) {
+      p <- p + ggplot2::geom_text(data = df,
+                       ggplot2::aes_string(x = lon, y = lat, label = label),
+                       size = 3,  # Adjust text size
+                       color = "black",  # Text color
+                       vjust = -1)  # Adjust vertical position
+    }
 
   # Return the plot object
   return(p)

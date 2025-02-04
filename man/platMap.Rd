@@ -4,7 +4,16 @@
 \alias{platMap}
 \title{Map points given the latitude, longitude and color}
 \usage{
-platMap(df, lat = "lat", lon = "lon", hex = "HEX", size = 3, ...)
+platMap(
+  df,
+  lat = "lat",
+  lon = "lon",
+  hex = "HEX",
+  scale = "medium",
+  size = 3,
+  label = FALSE,
+  ...
+)
 }
 \arguments{
 \item{df}{data frame with latitude, longitude, and color as values.}
@@ -15,7 +24,12 @@ platMap(df, lat = "lat", lon = "lon", hex = "HEX", size = 3, ...)
 
 \item{hex}{the column name of df that contains the color codes (or names). Default "HEX".}
 
+\item{scale}{The scale of map to return, passed to `rnaturalearth::ne_countries`
+one of `110`, `50`, `10` or `small`, `medium`, `large`. Default "medium"}
+
 \item{size}{default 3. Size of the points on the map}
+
+\item{label}{if labels are to be printed, column name in df with the labels. Default "FALSE"}
 
 \item{...}{Other arguments passed to geom_point()}
 }
