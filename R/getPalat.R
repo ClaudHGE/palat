@@ -67,6 +67,6 @@ getPalat <- function(df, hex = "HEX", labels = NULL, plot = TRUE, ...) {
       ggplot2::theme(legend.position = "none") +
       ggplot2::geom_text(aes(label = paste(nombres,colores, sep = ":  ")), color = "black", vjust = 1.5, ...)
     print(g)
-  }
+    }
   return(palat1)
 }

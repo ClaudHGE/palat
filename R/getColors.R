@@ -34,6 +34,7 @@ getColors <- function(df, lat = "lat", lon = "lon", dir = "EW", map = TRUE, ...)
   if (map == TRUE) {
     map <- platMap(rgb_hex, lat, lon, hex = "HEX", size = 3, ...)
     print(map)
+    return(list(table = rgb_hex, plot = map))
   }
   return(rgb_hex)
 }

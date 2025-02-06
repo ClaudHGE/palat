@@ -108,6 +108,6 @@ platPies <- function(df, lat = "lat", lon = "lon", k = "Cluster", hex = "HEX.K",
                           xlim = lon_range_plot,
                           ylim = lat_range_plot,
                           ...)
-  print(m)
+  return(m)
 }
 

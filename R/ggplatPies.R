@@ -95,4 +95,3 @@ ggplatPies <- function(df, lat = "lat", lon = "lon", k, hex = "HEX.K",
   return(g)
 }
 
-
