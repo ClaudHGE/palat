@@ -83,7 +83,7 @@ ggplatPies <- function(df, lat = "lat", lon = "lon", k, hex = "HEX.K",
     ggplot2::theme_minimal()
 
   ## Add the pies
-  g <- p + scatterpie::geom_scatterpie(aes(x = lon, y = get(lat), group = k, r = radius),
+  g <- p + scatterpie::geom_scatterpie(aes(x = lon, y = lat, group = k, r = radius),
                            data = df,
                            cols = names(pal), #palette
                            color = pie_border_col,
