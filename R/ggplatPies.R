@@ -52,6 +52,7 @@ ggplatPies <- function(df, lat = "lat", lon = "lon", k, hex = "HEX.K",
                        mapid = "region", radius = 0.2, land = "gray", coast = "white", expand = 0.05,
                     pie_border_col = "black", pie_line_size = 0.1, pie_alpha = 1,
                     legend = "none", long = "long") {
+                    legend = "none") {
 
 
   # Calculate the ranges for latitude and longitude
@@ -76,7 +77,6 @@ ggplatPies <- function(df, lat = "lat", lon = "lon", k, hex = "HEX.K",
   ## Create the base map
   p <- ggplot2::ggplot(world, aes(long, lat)) +
     ggplot2::geom_map(map=world, aes(map_id = mapid), fill = land, color = coast) +
-=======
 
   ### Global variables
   # Load world map data

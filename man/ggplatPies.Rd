@@ -18,8 +18,7 @@ ggplatPies(
   pie_border_col = "black",
   pie_line_size = 0.1,
   pie_alpha = 1,
-  legend = "none",
-  long = "long"
+  legend = "none"
 )
 }
 \arguments{
@@ -51,8 +50,6 @@ ggplatPies(
 \item{pie_alpha}{transparency level of the pie chart}
 
 \item{legend}{position of the legend. Default "none".}
-
-\item{long}{required to extract the longitude from ggplot2::geom_map. Do not change.}
 }
 \value{
 a ggplot object with pie charts showing the proportion of each category with the colors given the location.
