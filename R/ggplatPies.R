@@ -71,16 +71,13 @@ ggplatPies <- function(df, lat = "lat", lon = "lon", k, hex = "HEX.K",
   # Adjust the radius of the pie
   df$radius <- rep(x = radius, nrow(df))
 
-  # Create plot
-  ## Create the base map
-  p <- ggplot2::ggplot(world, aes(long, lat)) +
-    ggplot2::geom_map(map=world, aes(map_id = mapid), fill = land, color = coast) +
 
   ### Global variables
-  # Load world map data
-  world <- ggplot2::map_data('world')
+  world <- ggplot2::map_data('world')   # Load world map data
   map_long <- "long"
   map_lat <- "lat"
+
+  # Create the plot
   p <- ggplot2::ggplot(world, aes(get(map_long), get(map_lat))) +
     ggplot2::geom_map(map=world, aes(map_id = get(mapid)), fill = land, color = coast) +
     ggplot2::coord_sf(xlim = lon_range, ylim = lat_range, expand = TRUE) +
