@@ -30,7 +30,7 @@ the hex column can be created in df by following the pipeline (see examples)}
 \item{k}{Vector or Column name with the names of the clusters (e.g., group, region). Default "Cluster".
 If it's part of df, k should be associated with the samples.
 If vector, the order of the elements and total length must coincide with k.
-The factors or elements in k must be equal as the colnames in the df that contains the proportions.#'}
+The factors or elements in k must be equal as the colnames in the df that contains the proportions.}
 
 \item{hex}{Vector or column name that contains the color relative to the cluster. Default "HEX.K".
 If vector, the order of the elements and total length must coincide with k.}

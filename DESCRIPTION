@@ -20,6 +20,7 @@ Imports: ggplot2,
     rworldmap, 
     sf, 
     stats,
-    utils
+    utils,
+    scatterpie
 URL: https://github.com/ClaudHGE/palat/
 BugReports: https://github.com/ClaudHGE/palat/issues

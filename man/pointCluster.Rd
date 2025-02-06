@@ -38,7 +38,7 @@ and a column that aggregates the points (e.g., Cluster)}
 \item{label}{Whether the labels for k are to be printed. Default TRUE}
 }
 \value{
-data frame with as many unique values as there are
+a list with 1. "table" data frame with as many unique values as there are
 in the cluster column.
 The data frame contains six columns as follows:
 - Cluster: the original name of the column is changed to Cluster,
@@ -48,6 +48,7 @@ cluster.
 - HEX: RGB color in hexadecimal format respective to each cluster.
 - lat: mean latitude respective to to each cluster.
 - lon: mean longitude respective to to each cluster.
+2. "plot" the map generated.
 }
 \description{
 This function is useful when which to generaliz your map and get only one point per cluster.

@@ -20,7 +20,7 @@
 #' @param size size of the points to be plotted, passed through platMap()
 #' @param label Whether the labels for k are to be printed. Default TRUE
 #'
-#' @return data frame with as many unique values as there are
+#' @return  a list with 1. "table" data frame with as many unique values as there are
 #' in the cluster column.
 #' The data frame contains six columns as follows:
 #' - Cluster: the original name of the column is changed to Cluster,
@@ -30,6 +30,7 @@
 #' - HEX: RGB color in hexadecimal format respective to each cluster.
 #' - lat: mean latitude respective to to each cluster.
 #' - lon: mean longitude respective to to each cluster.
+#' 2. "plot" the map generated.
 #'
 #' @import stats
 #' @export
@@ -87,12 +88,12 @@ pointCluster <- function(df, k, r = "Red", g = "Green", b = "Blue", lati = "lat"
                              sprintf("#%02X%02X%02X", round(Red), round(Green), round(Blue)))
   if (label == TRUE) {label <- "klu"}
 
-  plot(platMap(df = average_colors, size = size, lon = "longhi", lat = "latte", label = label))
+  p <- plot(platMap(df = average_colors, size = size, lon = "longhi", lat = "latte", label = label))
 
   colnames(average_colors)[colnames(average_colors) == "klu"] <- original_k
   colnames(average_colors)[colnames(average_colors) == "latte"] <- original_lat
   colnames(average_colors)[colnames(average_colors) == "longhi"] <- original_lon
 
-  return(average_colors)
+  return(list(table = average_colors, plot = p))
   }
 

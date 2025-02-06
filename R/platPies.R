@@ -24,7 +24,7 @@
 #' @param k Vector or Column name with the names of the clusters (e.g., group, region). Default "Cluster".
 #' If it's part of df, k should be associated with the samples.
 #' If vector, the order of the elements and total length must coincide with k.
-#' The factors or elements in k must be equal as the colnames in the df that contains the proportions.#'
+#' The factors or elements in k must be equal as the colnames in the df that contains the proportions.
 #' @param hex Vector or column name that contains the color relative to the cluster. Default "HEX.K".
 #' If vector, the order of the elements and total length must coincide with k.
 #' @param alpha Transparency level from 0 to 1. Default 1.
