@@ -5,13 +5,14 @@
 #' @param lon Column name that contains the longitude values. Default "lon".
 #' @param dir indicates the direction of the main axis, East - West ("EW") or
 #' North - South ("NS"). Default "EW". This axis determine the Green - Red gradient from North or East, respectively.
-#' @param map Logical. Whether a map is to be plotted. Default TRUE.
+#' @param map Logical. Whether a map is to be plotted. Default FALSE.
 #' @param ... Other arguments passed to geom_point() via platMap()
 #'
 #' @return A data frame with the original columns and values with the columns:
 #' - Red, Green and Blue intensity values in decimal numbers (e.g., 100.2645).
 #' - RGB color in decimal format (e.g., 155, 100, 160).
 #' - RGB color in hexadecimal format (e.g., #9A649F).
+#' if map = TRUE, returns a list with table and ggplot object.
 #' @export
 #'
 #'
@@ -27,7 +28,7 @@
 #' # Call the function and plot the map
 #' getColors(df = dataframe, lat = "latitude", lon = "longitude")
 #'
-getColors <- function(df, lat = "lat", lon = "lon", dir = "EW", map = TRUE, ...) {
+getColors <- function(df, lat = "lat", lon = "lon", dir = "EW", map = FALSE, ...) {
   rgb <- getRGB(df, lat, lon, dir, bind = TRUE)
   rgb_hex <- getHEX(df = rgb, r = "Red", g = "Green", b = "Blue", bind = TRUE)
 

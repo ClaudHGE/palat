@@ -4,7 +4,7 @@
 \alias{getColors}
 \title{Add the R, G, B, and HEX columns to the input data frame. Optionally, map the results.}
 \usage{
-getColors(df, lat = "lat", lon = "lon", dir = "EW", map = TRUE, ...)
+getColors(df, lat = "lat", lon = "lon", dir = "EW", map = FALSE, ...)
 }
 \arguments{
 \item{df}{A data frame with latitude and longitude columns.}
@@ -16,7 +16,7 @@ getColors(df, lat = "lat", lon = "lon", dir = "EW", map = TRUE, ...)
 \item{dir}{indicates the direction of the main axis, East - West ("EW") or
 North - South ("NS"). Default "EW". This axis determine the Green - Red gradient from North or East, respectively.}
 
-\item{map}{Logical. Whether a map is to be plotted. Default TRUE.}
+\item{map}{Logical. Whether a map is to be plotted. Default FALSE.}
 
 \item{...}{Other arguments passed to geom_point() via platMap()}
 }
@@ -25,6 +25,7 @@ A data frame with the original columns and values with the columns:
 - Red, Green and Blue intensity values in decimal numbers (e.g., 100.2645).
 - RGB color in decimal format (e.g., 155, 100, 160).
 - RGB color in hexadecimal format (e.g., #9A649F).
+if map = TRUE, returns a list with table and ggplot object.
 }
 \description{
 Add the R, G, B, and HEX columns to the input data frame. Optionally, map the results.

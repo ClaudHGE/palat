@@ -15,6 +15,7 @@
 #' @param pie_alpha transparency level of the pie chart
 #' @param legend position of the legend. Default "none".
 #' @param mapid map used by ggplot2::geom_map. Default "region". Options are "subregion", "id", "state".
+#' @param long required to extract the longitude from ggplot2::geom_map. Do not change.
 #'
 #' @return a ggplot object with pie charts showing the proportion of each category with the colors given the location.
 #' @import ggplot2
@@ -50,7 +51,7 @@
 ggplatPies <- function(df, lat = "lat", lon = "lon", k, hex = "HEX.K",
                        mapid = "region", radius = 0.2, land = "gray", coast = "white", expand = 0.05,
                     pie_border_col = "black", pie_line_size = 0.1, pie_alpha = 1,
-                    legend = "none") {
+                    legend = "none", long = "long") {
 
 
   # Load world map data
@@ -76,7 +77,7 @@ ggplatPies <- function(df, lat = "lat", lon = "lon", k, hex = "HEX.K",
 
   # Create plot
   ## Create the base map
-  p <- ggplot2::ggplot(world, aes(lon, lat)) +
+  p <- ggplot2::ggplot(world, aes(long, lat)) +
     ggplot2::geom_map(map=world, aes(map_id = mapid), fill = land, color = coast) +
     ggplot2::coord_sf(xlim = lon_range, ylim = lat_range, expand = TRUE) +
     ggplot2::labs(x = "Longitude", y = "Latitude") +
