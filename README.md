@@ -20,10 +20,11 @@ brew install gdal geos proj
 ```{r}
 install.packages("devtools")
 library(devtools)
-install.packages(c("rnaturalearth", "sf", "units"))
+install.packages(c("rnaturalearth", "sf", "units", "Rcpp"))
 library(rnaturalearth)
 library(sf)
 library(units)
+library(Rcpp)
 ```
 
 ## 3. Install `palat` :-D
