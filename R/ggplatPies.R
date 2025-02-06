@@ -53,9 +53,6 @@ ggplatPies <- function(df, lat = "lat", lon = "lon", k, hex = "HEX.K",
                     legend = "none") {
 
 
-  # Load world map data
-  world <- ggplot2::map_data('world')
-
   # Calculate the ranges for latitude and longitude
   lat_range <- range(df$lat, na.rm = TRUE)
   lon_range <- range(df$lon, na.rm = TRUE)
@@ -76,14 +73,20 @@ ggplatPies <- function(df, lat = "lat", lon = "lon", k, hex = "HEX.K",
 
   # Create plot
   ## Create the base map
-  p <- ggplot2::ggplot(world, aes(lon, lat)) +
-    ggplot2::geom_map(map=world, aes(map_id = mapid), fill = land, color = coast) +
+
+  ### Global variables
+  # Load world map data
+  world <- ggplot2::map_data('world')
+  map_long <- "long"
+  map_lat <- "lat"
+  p <- ggplot2::ggplot(world, aes(get(map_long), get(map_lat))) +
+    ggplot2::geom_map(map=world, aes(map_id = get(mapid)), fill = land, color = coast) +
     ggplot2::coord_sf(xlim = lon_range, ylim = lat_range, expand = TRUE) +
     ggplot2::labs(x = "Longitude", y = "Latitude") +
     ggplot2::theme_minimal()
 
   ## Add the pies
-  g <- p + scatterpie::geom_scatterpie(aes(x = lon, y = get(lat), group = k, r = radius),
+  g <- p + scatterpie::geom_scatterpie(aes(x = lon, y = lat, group = k, r = radius),
                            data = df,
                            cols = names(pal), #palette
                            color = pie_border_col,
@@ -94,5 +97,4 @@ ggplatPies <- function(df, lat = "lat", lon = "lon", k, hex = "HEX.K",
   # Return the plot object
   return(g)
 }
-
 
