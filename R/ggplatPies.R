@@ -15,6 +15,7 @@
 #' @param pie_alpha transparency level of the pie chart
 #' @param legend position of the legend. Default "none".
 #' @param mapid map used by ggplot2::geom_map. Default "region". Options are "subregion", "id", "state".
+#' @param label if labels are to be printed, column name in df with the labels. Default "FALSE"
 #'
 #' @return a ggplot object with pie charts showing the proportion of each category with the colors given the location.
 #' @import ggplot2
@@ -49,8 +50,8 @@
 
 ggplatPies <- function(df, lat = "lat", lon = "lon", k, hex = "HEX.K",
                        mapid = "region", radius = 0.2, land = "gray", coast = "white", expand = 0.05,
-                    pie_border_col = "black", pie_line_size = 0.1, pie_alpha = 1,
-                    legend = "none") {
+                       pie_border_col = "black", pie_line_size = 0.1, pie_alpha = 1,
+                       legend = "none", label = FALSE) {
 
 
   # Calculate the ranges for latitude and longitude
@@ -77,22 +78,48 @@ ggplatPies <- function(df, lat = "lat", lon = "lon", k, hex = "HEX.K",
   map_long <- "long"
   map_lat <- "lat"
 
+
+  ### Labels
+  if (is.character(label) && label %in% colnames(df)){
+    points <- pointCluster(df, k = label)
+    table <- points$table
+    #print(table)
+  }
+
+
   # Create the plot
-  p <- ggplot2::ggplot(world, aes(get(map_long), get(map_lat))) +
+  m <- ggplot2::ggplot(world, aes(get(map_long), get(map_lat))) +
     ggplot2::geom_map(map=world, aes(map_id = get(mapid)), fill = land, color = coast) +
     ggplot2::coord_sf(xlim = lon_range, ylim = lat_range, expand = TRUE) +
     ggplot2::labs(x = "Longitude", y = "Latitude") +
     ggplot2::theme_minimal()
 
   ## Add the pies
-  g <- p + scatterpie::geom_scatterpie(aes(x = lon, y = lat, group = k, r = radius),
-                           data = df,
-                           cols = names(pal), #palette
-                           color = pie_border_col,
-                           alpha = pie_alpha, size = pie_line_size) +
+  g <- m + scatterpie::geom_scatterpie(aes(x = lon, y = lat, group = k, r = radius),
+                                       data = df,
+                                       cols = names(pal), #palette
+                                       color = pie_border_col,
+                                       alpha = pie_alpha, size = pie_line_size) +
     ggplot2::scale_fill_manual(values = pal) +
     ggplot2::theme(legend.position = legend)
 
+  if (is.character(label) && label %in% colnames(df)){
+    #add points
+    p <- g + #ggplot2::ggplot() +
+      #  ggplot2::geom_sf(data = world) +
+      ggplot2::geom_point(data = table, ggplot2::aes_string(x = lon, y = lat, color = "HEX"), size = 0.7) +
+      ggplot2::scale_color_identity() #+  # Use the exact colors defined
+    #ggplot2::coord_sf(xlim = lon_range, ylim = lat_range, expand = TRUE) +
+    #ggplot2::labs(x = "Longitude", y = "Latitude") +
+    #ggplot2::theme_minimal()
+
+    g <- p + ggplot2::geom_text(data = table,
+                                ggplot2::aes_string(x = lon, y = lat, label = label),
+                                size = 3,  # Adjust text size
+                                color = "black",  # Text color
+                                vjust = 1.2)  # Adjust vertical position
+
+  }
   # Return the plot object
   return(g)
 }

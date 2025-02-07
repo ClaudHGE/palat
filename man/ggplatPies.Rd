@@ -18,7 +18,8 @@ ggplatPies(
   pie_border_col = "black",
   pie_line_size = 0.1,
   pie_alpha = 1,
-  legend = "none"
+  legend = "none",
+  label = FALSE
 )
 }
 \arguments{
@@ -50,6 +51,8 @@ ggplatPies(
 \item{pie_alpha}{transparency level of the pie chart}
 
 \item{legend}{position of the legend. Default "none".}
+
+\item{label}{if labels are to be printed, column name in df with the labels. Default "FALSE"}
 }
 \value{
 a ggplot object with pie charts showing the proportion of each category with the colors given the location.
